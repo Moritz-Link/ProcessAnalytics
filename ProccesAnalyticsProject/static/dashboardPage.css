@@ -1,0 +1,26 @@
+.title {
+    background-color: rgb(39, 39, 39);
+    grid-column-start: 1;
+    grid-column-end: 3;
+    text-align: center;
+    color: white;
+    font-size: 28px;
+}
+
+
+.green {
+    grid-row-start: 2;
+    grid-row-end: 4;
+    background-color: lime;
+}
+
+.blue { background-color: cyan; }
+.yellow { background-color: yellow; }
+
+
+.wrapper .main_content{
+
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows : 5% 33% 33%;
+}

@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MainPage</title>
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="static/mainPage.css">
+    <link rel="stylesheet" href="static/graphPage.css">
+    <script src="static/mainPage.js" type="text/javascript" defer></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="static/graphJS.js" type="text/javascript" defer></script>
+
+    <script src="https://cdn.anychart.com/releases/8.12.0/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.12.0/js/anychart-graph.min.js"></script>
+
+</head>
+<body>
+
+    <div class="wrapper" id="wrapper_id">
+        <!--Top menu -->
+        <div class="main_content", id="div_main_content">
+
+            <div class="title">
+                PROCESS ANALYTICS
+            </div>
+            
+            <div id="div_choose_graph"> 
+                <h3>Update Process Data</h3> 
+                <form action="upload_data" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label for="file1" > Activity Log Data</label>
+                    <input type="file" id="file1" name="file" >
+                    <h5></h5>
+                    <label for="file2" >General Case Data</label>
+                    <input type="file" id="file2" name="file_case" >
+                    <p id="p_note">Only accepts CSV files</p>
+                    <small></small>
+                    <button type="submit" class="Click_BTN">Upload</button>
+                </form>
+
+
+
+            </div>
+            <div id="div_graph"> </div>
+            <div id="Case_Table">
+                <button id="open_close_data_upload_button", onclick="open_close_data_upload()" class="Click_BTN">Open Upload</button>
+                <table id="Case_id_tableID">
+                    <tr> <th>CASE_ID</th><th>#Activities</th></tr>
+                {% for x in process_data %}
+                        <tr class="n_caseID">
+                            <td>
+                                <button class="Case_Click_BTN" onclick="graph(event)" value="{{ x.case_id }}">{{ x.case_id }}</button>
+                            </td>
+                            <td>{{ x.total }}</td>
+                        </tr>
+                {% endfor %}
+                </table>
+                <button onclick="clearSimulation()"class="Click_BTN">Clear</button>
+                
+
+            </div>
+            <div id="Process_Data">
+                <p id="id_ProcessData_CaseID">Choose a case from the table</p>
+                
+                <div id="Process_Data_div"><ul id="Process_Data_ul"></ul></div>
+                
+                <div id="Process_Data_general_div"></div>
+                <div id="Process_Data_actions">
+                    <ul id="Process_Data_Actions_UL">
+ 
+                    <li class="Process_Data_Actions_UL_li">
+                        <button onclick="updata_process_instance_data()"" class="Process_Data_Actions_UL_li_BTN">Update</button>
+                    </li>
+                    <li class="Process_Data_Actions_UL_li">
+                        <button onclick="predict_process_instance_data()"class="Process_Data_Actions_UL_li_BTN">Predict</button>
+                    </li>
+                    <li class="Process_Data_Actions_UL_li">
+                        
+                    </li> 
+                    <li class="Process_Data_Actions_UL_li" id="id_ProcessData_Prediction">
+                    </li> 
+                </ul>
+                </div>
+                
+            </div>
+            
+            
+        </div>
+
+    </div>
+    
+
+</body>
+</html>
